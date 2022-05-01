@@ -72,9 +72,13 @@ Your github token is:
 <your token>
 <details of your github account>
 ```
-You can remove this entry code afterwards. Mentioned file is added to `.gitignore` already.
-- run `npm run dev`, this will start development server (nodemon) that monitors your changes and re-runs the script for faster development cycle
-- see `example.js` for how it's done, have fun :tada:
 
-## When you are done
-Run `npm run eslint:fix` and fix all issues. Commit and push those fixes. Email us a link to your fork.
+# How run the application
+Configure the token in __do-not-commit-me__.js inside token folder
+
+create `src/token/__do-not-commit-me__.js` file and add your token there like that:
+```js
+module.exports = '<token>'
+```
+
+Run `npm start --repo nestjs/nest --period 15d`
