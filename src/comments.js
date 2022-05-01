@@ -43,6 +43,7 @@ async function pullComment(repo, period, type = '', page = 0) {
     }
     return merge(newData, data)
   } catch (e) {
+    console.log(e.stack)
     return data
   }
 }

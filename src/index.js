@@ -7,7 +7,6 @@ const { log, print } = require('./utils')
 
 async function start() {
   const args = minimist(process.argv.slice(2))
-  console.log(args)
   let messages = '\n    Fetching comments'
   const repo = args._[0] || args['repo']
   if (!repo) {
@@ -41,7 +40,7 @@ async function start() {
       print(data)
     })
     .catch((err) => {
-      console.log(err)
+      console.log('Found error while pulling the comment', err)
     })
 }
 
