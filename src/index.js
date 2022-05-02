@@ -4,6 +4,7 @@ const minimist = require('minimist')
 const config = require('./config')
 const { pullComment, merge } = require('./comments')
 const { log, print } = require('./utils')
+const { fetchRate } = require('./rate')
 
 async function start() {
   const args = minimist(process.argv.slice(2))
@@ -23,10 +24,11 @@ async function start() {
   let COMMIT_URL = config.COMMIT_URL.replace(/REPOSITORY/, repo)
   let PULL_URL = config.PULL_URL.replace(/REPOSITORY/, repo)
   let ISSUE_URL = config.ISSUE_URL.replace(/REPOSITORY/, repo)
+  const rateLimit = await fetchRate(config.RATE)
   Promise.all([
-    pullComment(COMMIT_URL, period, 'commit'),
-    pullComment(PULL_URL, period),
-    pullComment(ISSUE_URL, period),
+    pullComment(COMMIT_URL, period, rateLimit.remaining, 'commit'),
+    pullComment(PULL_URL, period, rateLimit.remaining),
+    pullComment(ISSUE_URL, period, rateLimit.remaining),
   ])
     .then((res) => {
       let data = {}

@@ -1,6 +1,13 @@
 const leftPad = require('left-pad')
-function log(message) {
+let count = 0
+function log(message, increment) {
   process.stdout.write(message)
+  if (increment) {
+    count += 1
+  }
+}
+function getCount() {
+  return count
 }
 function sortBasedonCommnetAndReturnArray(data) {
   const arr = []
@@ -36,4 +43,5 @@ function print(data) {
 module.exports = {
   print,
   log,
+  getCount,
 }

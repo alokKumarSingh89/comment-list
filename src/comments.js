@@ -1,12 +1,15 @@
 const moment = require('moment')
 const { http } = require('./axiosHttp')
-const { log } = require('./utils')
-async function pullComment(repo, period, type = '', page = 0) {
+const { log, getCount } = require('./utils')
+async function pullComment(repo, period, remaining, type = '', page = 0) {
   const data = {}
   let flag = false
   try {
-    log('*', ' ', 5)
+    log('*', 1)
     const url = repo.replace('PAGE', page)
+    if (getCount() > remaining) {
+      return data
+    }
     const res = await http.get(url)
     if (res.data.length <= 0) {
       return data
